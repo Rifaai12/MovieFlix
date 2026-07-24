@@ -70,7 +70,9 @@ const App = () => {
 const loadTrendingMovies = async () => {
   try {
     const movies = await getTrndingMovies();
-    setTrendingMovies(movies);
+    console.log("Movies returned from Appwrite",movies);
+
+    setTrendingMovies(movies || []);
   } catch (error) {
     console.error(`Error fetching movies: ${error}`);
     
