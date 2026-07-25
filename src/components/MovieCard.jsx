@@ -22,11 +22,11 @@ const MovieCard = ({movie , onClick}) => {
           )
         }
         </div>
-        <h2 key={movie.id} className='text-white font-bold mt-3'>{movie.title}</h2>
+        <h2 key={movie.id} className='text-white text-sm md:text-base font-bold mt-3 line-clamp-2'>{movie.title}</h2>
         
       <div className='flex items-center gap-1 md:gap-2 mt-2'>
         <FaStar className='text-yellow-400 text-sm'/>
-        <p className='text-white'>
+        <p className='text-white text:xs md:text-base'>
             {movie.vote_average.toFixed(1)}
             <span className='text-gray-600 gap-2 p-1'>|</span>
             <span className='text-white'>{movie.original_language.toUpperCase()}</span>
