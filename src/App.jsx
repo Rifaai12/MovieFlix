@@ -15,6 +15,12 @@ const App = () => {
   const [debouncedSearchTerm,setDebouncedSearchTerm] = useState('');
   const [suggestions , setSuggestions] = useState([]);
   const [showSuggestions , setShowSuggestions] = useState(false);
+  const [movieDetails , setMovieDetails] = useState(null);
+  const [cast , setCast] = useState([]);
+  const [crew , setCrew] = useState([]);
+  const [trailer, setTrailer] = useState(null);
+  const [selectedMovie , setSelectedMovie] = useState(null);
+  
   useDebounce(()=>setDebouncedSearchTerm(searchTerm),500,[searchTerm])
   const API_OPTIONS = {
     method : "Get",
@@ -82,6 +88,9 @@ console.log("Trending Movies: ", trendingMovies);
 console.log("Trending length : ", trendingMovies.length);
 
 
+
+
+
   useEffect(()=>{
     fetchMovies(debouncedSearchTerm);
   },[debouncedSearchTerm]);
@@ -103,6 +112,13 @@ console.log("Trending length : ", trendingMovies.length);
     }
   };
 
+useEffect(()=>{
+  if (!selectedMovie) return;
+  console.log(selectedMovie);
+
+},[selectedMovie]);
+
+
   return (
     <main 
     style={{
@@ -116,18 +132,18 @@ console.log("Trending length : ", trendingMovies.length);
     <div className='wrapper'>
        <header>
         
-        <h1 className='text-5xl font-bold text-white text-center'>Find <span className='text-amber-100'>Movies</span> that you can enjoy without hassle.</h1>
+        <h1 className='text-3xl md:text-5xl font-bold text-white text-center'>Find <span className='text-amber-100'>Movies</span> that you can enjoy without hassle.</h1>
         </header>      
       </div>
     <div className='p-5'>
    
       
-      <h1 className='text-6xl font-bold text-red-500 flex justify-center'>
+      <h1 className='text-4xl md:text-6xl font-bold text-red-500 flex justify-center'>
         <span className='text-black'>M</span>ovieFlix
       </h1>
       </div>
       <nav className=' text-1xl flex justify-center p-5'>
-      <div className='relative w-fit'>
+      <div className='relative w-full md:w-fit max-w-md'>
       
       <img src={searchIcon} alt = "search" className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5' />
       <input type='text' 
@@ -137,7 +153,7 @@ console.log("Trending length : ", trendingMovies.length);
         setShowSuggestions(true);
       }}
       onKeyDown={handleKeyDown}
-      className='bg-white pl-12 pr-6 py-4 rounded-lg'
+      className='bg-white w-full md:w-auto pl-12 pr-6 py-4 rounded-lg'
       />
       {showSuggestions && suggestions.length > 0 && searchTerm.length >= 2 && (
         <div className='absolute top-full left-0 mt-2 w-full bg-white rounded-lg shadow-lg z-50'>
@@ -162,7 +178,7 @@ console.log("Trending length : ", trendingMovies.length);
       <div>
         {trendingMovies.length > 0 && (
           <section className='bg-gray-800 p-5 mt-10'>
-            <h2 className='text-white text-4xl font-bold text-center p-10 '>
+            <h2 className='text-white text-2xl md:text-4xl font-bold text-center p-5 md:p-10 '>
               Top Searched movies in MovieFlix...
             </h2>
         
@@ -184,7 +200,7 @@ console.log("Trending length : ", trendingMovies.length);
             
           </section>
         )}
-        <h1 className='text-white text-3xl text-center mt-5'>
+        <h1 className='text-white text-2xl md:text-3xl text-center mt-5'>
           Top Trending Movies...
         </h1>
 
@@ -193,7 +209,7 @@ console.log("Trending length : ", trendingMovies.length);
           <div className='flex justify-center mt-5'>
             <div className='w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin'></div></div>):
          (movieList.map((movie)=>(
-            <MovieCard key={movie.id} movie={movie}/> 
+            <MovieCard key={movie.id} movie={movie} onClick = {() => setSelectedMovie(movie.id)}/> 
           ))
           )
           

@@ -3,14 +3,16 @@ import Lottie from 'lottie-react'
 import starAnimation from '../assets/star.json'
 import { FaStar } from 'react-icons/fa'
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({movie , onClick}) => {
   return (
-    <div className='bg-gray-900 rounded-xl p-4 w-64 hover:scale-110 transition duration-300'>
+    
+    <div className='bg-gray-900 rounded-xl p:3 md:p-4 w-40 sm:w-48 md:w-64 hover:scale-105 md:hover:scale-110 transition duration-300 ' >
+      <div onClick={onClick}>
         {
           movie.poster_path ? (
               <img src = {`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
-              className='rounded-lg w-full h-[350px] object-cover'
+              className='rounded-lg w-full h-[220px] sm:h-[280px] md:h-[350px] object-cover'
               />
           ) : (
             <div className='rounded-lg w-full h-[350px] bg-gray-700 flex items-center justify-center'>
@@ -19,9 +21,10 @@ const MovieCard = ({movie}) => {
 
           )
         }
+        </div>
         <h2 key={movie.id} className='text-white font-bold mt-3'>{movie.title}</h2>
         
-      <div className='flex items-center gap-2 mt-2'>
+      <div className='flex items-center gap-1 md:gap-2 mt-2'>
         <FaStar className='text-yellow-400 text-sm'/>
         <p className='text-white'>
             {movie.vote_average.toFixed(1)}
@@ -32,6 +35,7 @@ const MovieCard = ({movie}) => {
         </p>
        </div> 
     </div>
+    
   )
 }
 
