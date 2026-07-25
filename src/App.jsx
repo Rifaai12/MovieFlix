@@ -96,6 +96,13 @@ console.log("Trending length : ", trendingMovies.length);
     fetchSuggestions(searchTerm)}, [searchTerm]
   );
 
+  const handleKeyDown = (e)=>{
+    if(e.key == "Enter"){
+      setShowSuggestions(false);
+      setSuggestions([]);
+    }
+  };
+
   return (
     <main 
     style={{
@@ -129,6 +136,7 @@ console.log("Trending length : ", trendingMovies.length);
       onChange={(e)=> {setSearchTerm(e.target.value);
         setShowSuggestions(true);
       }}
+      onKeyDown={handleKeyDown}
       className='bg-white pl-12 pr-6 py-4 rounded-lg'
       />
       {showSuggestions && suggestions.length > 0 && searchTerm.length >= 2 && (
