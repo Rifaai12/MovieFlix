@@ -1,10 +1,11 @@
-import React , {useState, useEffect} from 'react'
+import React , {useState, useEffect , useRef } from 'react'
 import hero1 from './assets/hero1.jpg'
 import Search from './components/Search'
 import searchIcon from './assets/search.svg'
 import MovieCard from './components/MovieCard'
 import { useDebounce } from 'react-use'
 import { getTrndingMovies, updateSearchCount } from './appwrite'
+
 const App = () => {
   const [searchTerm , setSearchTerm] = useState("");
   const [movieList , setMovieList] = useState([]);
@@ -20,6 +21,8 @@ const App = () => {
   const [crew , setCrew] = useState([]);
   const [trailer, setTrailer] = useState(null);
   const [selectedMovie , setSelectedMovie] = useState(null);
+  const searchRef = useRef(null);
+ 
   
   useDebounce(()=>setDebouncedSearchTerm(searchTerm),500,[searchTerm])
   const API_OPTIONS = {
@@ -118,6 +121,21 @@ useEffect(()=>{
 
 },[selectedMovie]);
 
+useEffect(()=>{
+  const handleClickOutside = (event) => {
+    if (
+      searchRef.current && !searchRef.current.contains(event.target)
+    ){
+      setShowSuggestions(false);
+    }
+  };
+  document.addEventListener("mousedown",handleClickOutside);
+  return () =>{
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+},[]);
+
+
 
   return (
     <main 
@@ -143,7 +161,7 @@ useEffect(()=>{
       </h1>
       </div>
       <nav className=' text-1xl flex justify-center p-5'>
-      <div className='relative w-full md:w-fit max-w-md'>
+      <div ref={searchRef} className=' relative w-full md:w-fit max-w-md '>
       
       <img src={searchIcon} alt = "search" className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5' />
       <input type='text' 
