@@ -3,10 +3,13 @@ import Lottie from 'lottie-react'
 import starAnimation from '../assets/star.json'
 import { FaStar } from 'react-icons/fa'
 
-const MovieCard = ({movie , onClick}) => {
+const MovieCard = ({movie , onClick , rank}) => {
   return (
     
-    <div className='bg-gray-900 rounded-xl p:3 md:p-4 w-40 sm:w-48 md:w-64 hover:scale-105 md:hover:scale-110 transition duration-300 ' >
+    <div className='relative bg-gray-900 rounded-xl p-3 md:p-4 w-40 sm:w-48 md:w-64 hover:scale-105 md:hover:scale-110 transition duration-300 ' >
+      <div className='absolute top-2 left-2 bg-red-600 text-white px-2 py-1 rounded-md text-xs font-bold'>
+        🔥 Popularity Score: {movie.popularity.toFixed(1)}
+      </div>
       <div onClick={onClick}>
         {
           movie.poster_path ? (
