@@ -327,6 +327,20 @@ useEffect(()=>{
                 title='Trailer'
                 allowFullScreen>
               </iframe>
+              <div className='flex justify-center items-center'>
+               <button className=' text-4xl font-bold text-white mt-4 p-4 px-2.5 cursor-pointer'
+            onClick={()=>{
+              setMovieDetails(null);
+              setSelectedMovie(null);
+              setCast([]);
+              setCrew([]);
+              setTrailer(null);
+            }}>
+
+            Go Back
+
+            </button>
+            </div>
           </div>)
 }
 
