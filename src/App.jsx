@@ -131,7 +131,7 @@ useEffect(()=>{
       setCast(credits.cast.slice(0,10));
 
       setCrew(credits.crew.filter((person)=> person.job == "Director" || person.job == "Producer" || person.job == "Writer"));
-      const officialTrailer = videos.results.find((video)=> video.site === "YouTube" && video.type === "Trailer");
+      const officialTrailer = videos.results.find((video)=> video.site === "YouTube" && video.type === "Trailer" && video.official)|| videos.results.find((video)=> video.site === "YouTube" && video.type === "Trailer") || videos.results.find((video)=> video.site === "YouTube" && video.type === "Teaser")|| videos.results.find((video)=> video.site === "YouTube");
       setTrailer(officialTrailer||null);
 
     }
@@ -327,8 +327,11 @@ useEffect(()=>{
                 title='Trailer'
                 allowFullScreen>
               </iframe>
-              <div className='flex justify-center items-center'>
-               <button className=' text-4xl font-bold text-white mt-4 p-4 px-2.5 cursor-pointer'
+              
+          </div>)
+}
+    <div className='flex justify-center items-center'>
+               <button className=' text-4xl font-bold text-white mt-4 p-4 px-2.5 cursor-pointer '
             onClick={()=>{
               setMovieDetails(null);
               setSelectedMovie(null);
@@ -341,8 +344,6 @@ useEffect(()=>{
 
             </button>
             </div>
-          </div>)
-}
 
           
 
